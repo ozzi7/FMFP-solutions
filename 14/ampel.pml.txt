@@ -1,0 +1,20 @@
+bit x = 1, y = 0, z = 0;
+ 
+init {
+s1: // red-yellow state
+    y = 1;
+s2: // green state
+  atomic {
+    x = 0; y = 0; z = 1;  
+  }
+s3: // yellow state
+  atomic {
+    y = 1; z = 0;  
+  }
+s4: // red state
+  atomic {
+    x = 1; y = 0; goto s1
+  }
+}
+
+ltl { [] ((x==1) && (y==1) -> (z==1)) };
